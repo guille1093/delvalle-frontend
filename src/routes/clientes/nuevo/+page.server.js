@@ -36,7 +36,7 @@ export const actions = {
 				.filter((cliente) => {
 				return cliente.dni === formData.dni;
 			});
-			console.log('clientes con DNI repetidos: ', clientesRepetidos );
+			console.log('DNI repetidos: ', clientesRepetidos );
 		} catch (err) {
 			console.log('Error: ', err);
 			clientesRepetidos  = [];
