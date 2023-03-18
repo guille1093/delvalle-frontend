@@ -1,7 +1,3 @@
-import { getImageURL } from '$lib/utils';
-import { getImageBlob} from "$lib/utils";
-import { redirect } from "@sveltejs/kit";
-
 export const load = ({ locals }) => {
 	if (locals.user) {
 		// //change the value of the avatar url to the ip address of the server using the getImageURL function

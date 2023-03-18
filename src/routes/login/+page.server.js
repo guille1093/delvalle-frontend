@@ -1,6 +1,15 @@
-import { error, invalid, redirect } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 import { validateData } from "$lib/utils";
 import { loginUserSchema } from "$lib/schemas";
+
+
+//Si el usuario ya está logueado, lo redirige a la página principal
+export const load = async ({ locals }) => {
+	if (locals.pb?.authStore?.model) {
+		throw redirect(303, "/");
+	}
+	return {};
+}
 
 export const actions = {
 	login: async ({ request, locals }) => {
@@ -10,7 +19,7 @@ export const actions = {
 		);
 
 		if (errors) {
-			return invalid(400, {
+			return ( {
 				data: formData,
 				errors: errors.fieldErrors,
 			});

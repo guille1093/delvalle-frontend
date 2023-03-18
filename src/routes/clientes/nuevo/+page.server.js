@@ -1,4 +1,4 @@
-import { error, invalid, redirect } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import { serialize } from 'object-to-formdata';
 import { formatDateToDB, validateData } from "$lib/utils";
 import {crearCliente} from "$lib/models/clienteModelo.js";
@@ -18,7 +18,7 @@ export const actions = {
 		formData.fechanacimiento = formatDateToDB(formData.fechanacimiento);
 
 		if (errors) {
-			return invalid(400, {
+			return ( {
 				data: rest,
 				errors: errors.fieldErrors
 			});

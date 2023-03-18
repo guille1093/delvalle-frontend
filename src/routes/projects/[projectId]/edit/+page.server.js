@@ -1,4 +1,4 @@
-import { error, invalid, redirect } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import { serialNPJ, validateData } from '$lib/utils';
 import { updateProjectSchema } from '$lib/schemas';
 import { serialize } from 'object-to-formdata';
@@ -40,7 +40,7 @@ export const actions = {
 		const { thumbnail, ...rest } = formData;
 
 		if (errors) {
-			return invalid(400, {
+			return ( {
 				data: rest,
 				errors: errors.fieldErrors
 			});
