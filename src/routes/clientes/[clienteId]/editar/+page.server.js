@@ -1,8 +1,13 @@
 import { error, redirect } from '@sveltejs/kit';
-import { formatDate, serialNPJ, validateData } from "$lib/utils";
+import {
+	formatDatePicker,
+	formatDateToDB,
+	serialNPJ,
+	validateData,
+	formatDateToInputMoment
+} from '$lib/utils';
 import { actualizarCliente } from '$lib/models/clienteModelo';
 import { serialize } from 'object-to-formdata';
-import {formatDateToDB} from "$lib/utils";
 
 export const load = async ({ locals, params }) => {
 	if (!locals.pb.authStore.isValid) {
@@ -12,7 +17,7 @@ export const load = async ({ locals, params }) => {
 		try {
 			const cliente = serialNPJ(await locals.pb.collection('clientes').getOne(clienteId));
 			//formateamos la fecha de nacimiento
-			cliente.fechanacimiento = formatDate(cliente.fechanacimiento);
+			cliente.fechanacimiento = formatDatePicker(cliente.fechanacimiento);
 			return cliente;
 		} catch (err) {
 			console.log('Error: ', err);
@@ -20,23 +25,34 @@ export const load = async ({ locals, params }) => {
 		}
 	};
 
+	const getNacionalidades = async () => {
+		try {
+			return serialNPJ(await locals.pb.collection('nacionalidades').getFullList());
+		} catch (err) {
+			console.log('Error: ', err);
+			throw error(err.status, err.message);
+		}
+	};
+
 	return {
-		cliente: getCliente(params.clienteId)
+		cliente: getCliente(params.clienteId),
+		nacionalidades: getNacionalidades()
 	};
 };
 
 export const actions = {
 	updateCliente: async ({ request, locals, params }) => {
 		const body = await request.formData();
+		body.set('fechanacimiento', formatDateToInputMoment(body.get('fechanacimiento')));
 		const { formData, errors } = await validateData(body, actualizarCliente);
 		const { thumbnail, ...rest } = formData;
 		console.log('formData: ', formData);
 
 		if (errors) {
-			return ( {
+			return {
 				data: rest,
 				errors: errors.fieldErrors
-			});
+			};
 		}
 		formData.fechanacimiento = formatDateToDB(formData.fechanacimiento);
 		formData.sexo = formData.sexo.toString();

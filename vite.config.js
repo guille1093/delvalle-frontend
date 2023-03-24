@@ -4,7 +4,7 @@ const config = {
 	plugins: [sveltekit()],
 	build: {
 		minify: 'esbuild',
-		target: "esnext"
+		target: 'esnext'
 	}
 };
 

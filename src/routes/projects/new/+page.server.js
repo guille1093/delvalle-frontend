@@ -3,7 +3,6 @@ import { serialize } from 'object-to-formdata';
 import { createProjectSchema } from '$lib/schemas';
 import { validateData } from '$lib/utils';
 
-
 export const load = ({ locals }) => {
 	if (!locals.pb.authStore.isValid) {
 		throw redirect(303, '/login');
@@ -24,10 +23,10 @@ export const actions = {
 		const { thumbnail, ...rest } = formData;
 
 		if (errors) {
-			return ( {
+			return {
 				data: rest,
 				errors: errors.fieldErrors
-			});
+			};
 		}
 
 		try {

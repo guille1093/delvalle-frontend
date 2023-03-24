@@ -9,9 +9,7 @@ export const load = async ({ locals, params }) => {
 	}
 
 	try {
-		const project = serialNPJ(
-			await locals.pb.collection('projects').getOne(params.projectId)
-		);
+		const project = serialNPJ(await locals.pb.collection('projects').getOne(params.projectId));
 
 		if (locals.user.id === project.user) {
 			return {
@@ -40,10 +38,10 @@ export const actions = {
 		const { thumbnail, ...rest } = formData;
 
 		if (errors) {
-			return ( {
+			return {
 				data: rest,
 				errors: errors.fieldErrors
-			});
+			};
 		}
 
 		try {

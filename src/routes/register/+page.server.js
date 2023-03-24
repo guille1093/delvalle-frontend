@@ -7,10 +7,10 @@ export const actions = {
 		const { formData, errors } = await validateData(await request.formData(), registerUserSchema);
 
 		if (errors) {
-			return ( {
+			return {
 				data: formData,
 				errors: errors.fieldErrors
-			});
+			};
 		}
 
 		let username = generateUsername(formData.name.split(' ').join('')).toLowerCase();
