@@ -25,7 +25,6 @@
 			loading = false;
 		};
 	};
-
 	$: modalOpen = false;
 </script>
 

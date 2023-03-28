@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
 export const loginUserSchema = z.object({
-	email: z.string({ required_error: 'Email is required' }),
-	password: z.string({ required_error: 'Password is required' })
+	email: z.string({ required_error: 'Email o nombre de usuario requeridos' }),
+	password: z.string({ required_error: 'Contraseña requerida' })
 });
 
 export const registerUserSchema = z
@@ -33,12 +33,12 @@ export const registerUserSchema = z
 		if (passwordConfirm !== password) {
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
-				message: 'Password & Confirm password must match',
+				message: 'Las contraseñas deben coincidir',
 				path: ['password']
 			});
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
-				message: 'Password & Confirm password must match',
+				message: 'Las contraseñas deben coincidir',
 				path: ['passwordConfirm']
 			});
 		}
@@ -54,22 +54,45 @@ const imageTypes = [
 ];
 
 export const createProjectSchema = z.object({
-	name: z
-		.string({ required_error: 'Name is required' })
-		.min(1, { message: 'Name is required' })
-		.max(64, { message: 'Name must be 64 characters or less' })
+	nombre: z
+		.string({ required_error: 'Nombre del paquete requerido' })
+		.min(1, { message: 'Nombre del paquete requerido' })
+		.max(64, { message: 'Nombre del paquete no debe superar los 64 caracteres' })
 		.trim(),
-	tagline: z
-		.string({ required_error: 'Tagline is required' })
-		.min(1, { message: 'Tagline is required' })
-		.max(64, { message: 'Tagline must be 64 characters or less' })
+	precio: z
+		.string({ required_error: 'Precio requerido' })
+		.min(1, { message: 'Precio debe ser mayor o igual a 0' })
+		.max(999999999, { message: 'Precio debe ser menor o igual a 999999999' }),
+	cant_dias: z
+		.string({ required_error: 'Cantidad de días requerida' })
+		.min(1, { message: 'Cantidad de días debe ser mayor o igual a 1' })
+		.max(999999999, { message: 'Cantidad de días debe ser menor o igual a 999999999' }),
+	cant_noches: z
+		.string({ required_error: 'Cantidad de noches requerida' })
+		.min(1, { message: 'Cantidad de noches debe ser mayor o igual a 0' })
+		.max(999999999, { message: 'Cantidad de noches debe ser menor o igual a 999999999' }),
+	descripcion: z
+		.string({ required_error: 'Descripcion requerida' })
+		.max(512, { message: 'La descripcion no debe superar los 512 caracteres' })
 		.trim(),
-	url: z.string({ required_error: 'URL is required' }).url({ message: 'URL must be a valid URL' }),
-	description: z
-		.string({ required_error: 'Description is required' })
-		.min(1, { message: 'Description is required' })
-		.max(512, { message: 'Description must be less than 512 characters' })
-		.trim(),
+	estado: z
+		.string({ required_error: 'Estado requerido' })
+		.min(1, { message: 'Estado requerido' }),
+	fechasalida: z
+		.string({ required_error: 'Fecha de salida requerida' })
+		.min(1, { message: 'Fecha de salida requerida' }),
+	fecharetorno: z
+		.string({ required_error: 'Fecha de retorno requerida' })
+		.min(1, { message: 'Fecha de retorno requerida' }),
+	hotel: z
+		.string({ required_error: 'Hotel requerido' })
+		.min(1, { message: 'Hotel requerido' }),
+	regimen: z
+		.string({ required_error: 'Regimen requerido' })
+		.min(1, { message: 'Regimen requerido' }),
+	pais_destino: z
+		.string({ required_error: 'Pais de destino requerido' })
+		.min(1, { message: 'Pais de destino requerido' }),
 	thumbnail: z
 		.instanceof(Blob)
 		.optional()
@@ -90,10 +113,9 @@ export const createProjectSchema = z.object({
 				}
 			}
 		}),
-	user: z.string({ required_error: 'User is required.' })
 });
 
-export const updateProjectSchema = createProjectSchema.omit({ user: true });
+export const updateProjectSchema = createProjectSchema;
 
 export const updateEmailSchema = z.object({
 	email: z

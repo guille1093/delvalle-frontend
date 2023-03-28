@@ -1,42 +1,43 @@
 import { serialNPJ } from '$lib/utils.js';
 import { error, redirect } from '@sveltejs/kit';
-import { formatDate } from '$lib/utils.js';
+import moment from 'moment';
 
 export const load = ({ locals }) => {
 	if (!locals.pb.authStore.isValid) {
 		throw redirect(303, '/login');
 	}
 
-	const getClientes = async () => {
+	const getProjects = async () => {
 		try {
-			const clientes = serialNPJ(await locals.pb.collection('clientes').getFullList(undefined, {}));
+			const projects = serialNPJ(await locals.pb.collection('projects').getFullList(undefined, {}));
 
-			//formatear la fecha de nacimiento
-			clientes.forEach((cliente) => {
-				cliente.fechanacimiento = formatDate(cliente.fechanacimiento);
+			projects.forEach((project) => {
+				project.fechasalida = moment(project.fechasalida).format('DD/MM/YYYY');
+				project.fecharetorno = moment(project.fecharetorno).format('DD/MM/YYYY');
 			});
 
-			return clientes;
+
+			return projects;
 		} catch (err) {
 			console.log('Error: ', err);
 			throw error(err.status, err.message);
 		}
 	};
 	return {
-		clientes: getClientes()
+		projects: getProjects()
 	};
 };
 
 export const actions = {
-	deleteCliente: async ({ request, locals }) => {
+	deleteProject: async ({ request, locals }) => {
 		const { id } = Object.fromEntries(await request.formData());
 
 		try {
-			await locals.pb.collection('clientes').delete(id);
+			await locals.pb.collection('projects').delete(id);
 		} catch (err) {
 			console.log('Error: ', err);
 			throw error(err.status, err.message);
 		}
-		throw redirect(303, `/clientes`);
+		redirect(303, `/projects`);
 	}
 };

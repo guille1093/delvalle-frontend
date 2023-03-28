@@ -62,7 +62,10 @@ const clienteModelo = z.object({
 		.max(64, { message: 'EL SEXO NO PUEDE TENER MAS DE 64 CARACTERES' }),
 	observaciones: z
 		.string()
-		.max(500, { message: 'LAS OBSERVACIONES NO PUEDEN TENER MAS DE 300 CARACTERES' })
+		.max(500, { message: 'LAS OBSERVACIONES NO PUEDEN TENER MAS DE 300 CARACTERES' }),
+	lugarascenso: z
+		.string()
+		.max(64, { message: 'EL LUGAR DE ASECENSO NO PUEDE TENER MAS DE 64 CARACTERES' })
 });
 
 export const actualizarCliente = clienteModelo;

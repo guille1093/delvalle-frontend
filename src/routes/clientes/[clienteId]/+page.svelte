@@ -42,6 +42,10 @@
 			value: data.cliente.nacionalidad
 		},
 		{
+			title: 'Lugar ascenso',
+			value: data.cliente.lugarascenso
+		},
+		{
 			title: 'Nombre madre',
 			value: data.cliente.nombremadre
 		},
@@ -80,8 +84,7 @@
 				>(ID: {data.cliente.id})
 				<a
 					class="text-blue-500 text-xl m-3 pb-0 bx bx-edit"
-					href="/clientes/{data.cliente.id}/editar"
-				/></span
+					href="/clientes/{data.cliente.id}/editar"> </a></span
 			>
 		</div>
 		<div class="text-gray-700 font-mono dark:bg-gray-900">

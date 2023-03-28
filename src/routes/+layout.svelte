@@ -40,7 +40,7 @@
 		},
 		{
 			title: 'Paquetes',
-			href: '/paquetes',
+			href: '/projects',
 			icon: 'bx bx-package'
 		},
 		{

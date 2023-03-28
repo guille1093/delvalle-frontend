@@ -21,51 +21,7 @@ export const getImageBlob = async (url) => {
 	return await response.blob();
 };
 
-//funcion que cambia el formato de una fecha de Sun Oct 10 1993 00:00:00 GMT-0300 (hora estándar de Argentina) a 10/10/1993
-export const formatDateToInput = (date) => {
-	const dateArray = date.split(' ');
-	switch (dateArray[1]) {
-		case 'Jan':
-			dateArray[1] = '01';
-			break;
-		case 'Feb':
-			dateArray[1] = '02';
-			break;
-		case 'Mar':
-			dateArray[1] = '03';
-			break;
-		case 'Apr':
-			dateArray[1] = '04';
-			break;
-		case 'May':
-			dateArray[1] = '05';
-			break;
-		case 'Jun':
-			dateArray[1] = '06';
-			break;
-		case 'Jul':
-			dateArray[1] = '07';
-			break;
-		case 'Aug':
-			dateArray[1] = '08';
-			break;
-		case 'Sep':
-			dateArray[1] = '09';
-			break;
-		case 'Oct':
-			dateArray[1] = '10';
-			break;
-		case 'Nov':
-			dateArray[1] = '11';
-			break;
-		case 'Dec':
-			dateArray[1] = '12';
-			break;
-		default:
-			break;
-	}
-	return `${dateArray[2]}/${dateArray[1]}/${dateArray[3]}`;
-};
+
 
 //funcion que cambia el formato de una fecha de Sun Oct 10 1993 00:00:00 GMT-0300 (hora estándar de Argentina) a 10/10/1993 utilizando moment
 export const formatDateToInputMoment = (date) => {

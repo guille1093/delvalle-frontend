@@ -3,7 +3,6 @@
 	import { invalidateAll } from '$app/navigation';
 	import { Input, TextArea } from '$lib/components';
 	import { Button } from 'flowbite-svelte';
-	import { getImageURL } from '$lib/utils';
 	import { DateInput, localeFromDateFnsLocale } from 'date-picker-svelte';
 	import { es } from 'date-fns/locale';
 	export let data;
@@ -89,6 +88,14 @@
 				value={form?.data?.domicilio ?? data.cliente.domicilio}
 				errors={form?.errors?.domicilio}
 			/>
+<!--			lugar ascenso-->
+			<Input
+				id="lugarascenso"
+				label="Lugar de ascenso"
+				value={form?.data?.lugarascenso ?? data.cliente.lugarascenso}
+				errors={form?.errors?.lugarascenso}
+			/>
+
 			<!--nacionalidad-->
 			<div class="form-control w-full max-w-lg mb-2">
 				<label class="label font-medium pb-1">
@@ -103,7 +110,7 @@
 					>
 						{#each data.nacionalidades as nacionalidad}
 							<option value={nacionalidad.destpais}
-								>{nacionalidad.destpais} ({nacionalidad.codpais})</option
+								>{nacionalidad.destpais}</option
 							>
 						{/each}
 					</select>

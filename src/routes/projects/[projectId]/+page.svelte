@@ -1,6 +1,14 @@
 <script>
-	import { getImageURL } from '$lib/utils';
+	import {Button} from "flowbite-svelte";
+	import moment from 'moment';
 	export let data;
+	const fechaS = moment(data.project.fechasalida).format('DD/MM/YYYY');
+	const fechaR = moment(data.project.fecharetorno).format('DD/MM/YYYY');
+	const created = moment(data.project.created).format('DD/MM/YYYY h:mm');
+	const updated = moment(data.project.updated).format('DD/MM/YYYY h:mm');
+	let pesoARLocale = Intl.NumberFormat('es-AR');
+	const precio = pesoARLocale.format(data.project.precio);
+
 	const items = [
 		{
 			name: 'Destino',
@@ -10,17 +18,17 @@
 		{
 			name: 'Precio',
 			icon: 'bx-dollar',
-			value: data.project.precio
+			value: precio
 		},
 		{
 			name: 'Salida',
 			icon: 'bx-calendar-heart',
-			value: data.project.fecha_salida
+			value: fechaS
 		},
 		{
 			name: 'Llegada',
 			icon: 'bx-calendar-check',
-			value: data.project.fecha_llegada
+			value: fechaR
 		},
 		{
 			name: 'Dias',
@@ -55,34 +63,33 @@
 		{
 			name: 'Creado',
 			icon: 'bx-calendar',
-			value: data.project.created
+			value: created
 		},
 		{
 			name: 'Modificado',
 			icon: 'bx-calendar-edit',
-			value: data.project.updated
+			value: updated
 		}
 	];
 </script>
 
 <!-- Section: Design Block -->
-<section class="mb-32">
-	<div class="container w-full">
-		<section class="mb-32 text-gray-800 text-center md:text-left">
-			<div class="block rounded-lg shadow-lg bg-white">
+<section class="mb-32 dark:bg-gray-800 dark:text-gray-200">
+	<div class="container w-full dark:bg-gray-800 dark:text-gray-200">
+		<section class="mb-32 text-gray-800 text-center md:text-left dark:bg-gray-800 dark:text-gray-200">
+			<div class="block rounded-lg shadow-lg bg-white dark:bg-gray-800 dark:text-gray-200">
 				<div class="flex flex-wrap items-center">
 					<div class="grow-0 shrink-0 basis-auto w-full lg:w-6/12 xl:w-8/12">
 						<div class="px-6 py-12 md:px-12">
 							<h2 class="text-3xl font-bold mb-6 pb-2">{data.project.nombre}</h2>
 							<p class="text-gray-500 mb-6 pb-2">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. A soluta corporis
-								voluptate ab error quam dolores doloremque, quae consectetur.
+								{data.project.descripcion}
 							</p>
-							<ul role="list" class="space-y-5 my-7">
+							<ul class="space-y-5 my-7">
 								{#each items as item}
 									<li class="flex space-x-3">
 										<!-- Icon -->
-										<a class="bx text-blue-600 {item.icon}" />
+										<i class="bx text-blue-600 {item.icon}" ></i>
 										<span
 											class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400"
 											><strong>{item.name}:</strong> {item.value}</span
@@ -90,12 +97,11 @@
 									</li>
 								{/each}
 							</ul>
-							<button
-								type="button"
-								class="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out"
+							<Button
+								href="{data.project.id}/edit"
 							>
 								Editar
-							</button>
+							</Button>
 						</div>
 					</div>
 				</div>
@@ -104,4 +110,3 @@
 	</div>
 </section>
 <!-- Section: Design Block -->
-<!-- Container for demo purpose -->

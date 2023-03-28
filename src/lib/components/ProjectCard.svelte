@@ -1,16 +1,19 @@
 <script>
 	import { getImageURL } from '$lib/utils';
 	export let project;
+	let pesoARLocale = Intl.NumberFormat('es-AR');
+	const precio = pesoARLocale.format(project.precio);
+
 	const items = [
 		{
 			name: 'Salida',
 			icon: 'bx-calendar-heart',
-			value: project.fecha_salida
+			value: project.fechasalida
 		},
 		{
 			name: 'Llegada',
 			icon: 'bx-calendar-check',
-			value: project.fecha_llegada
+			value: project.fecharetorno
 		},
 		{
 			name: 'Dias',
@@ -44,7 +47,7 @@
 		<div class="flex items-baseline text-gray-900 dark:text-white">
 			<span class="text-3xl font-semibold">$</span>
 			<span class="md:text-3xl text-5xl font-extrabold tracking-tight overflow-scroll"
-				>{project.precio}</span
+				>{precio}</span
 			>
 		</div>
 		<!-- List -->
@@ -52,7 +55,7 @@
 			{#each items as item}
 				<li class="flex space-x-3">
 					<!-- Icon -->
-					<a class="bx text-blue-600 {item.icon}" />
+					<i class="bx text-blue-600 {item.icon}"></i>
 					<span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400"
 						>{item.name}: {item.value}</span
 					>
