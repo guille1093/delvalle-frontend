@@ -1,7 +1,11 @@
 <script>
 	import { getImageURL } from '$lib/utils';
 	export let project;
-	let pesoARLocale = Intl.NumberFormat('es-AR');
+	let pesoARLocale = Intl.NumberFormat('es-AR', {
+		style: 'currency',
+		currency: 'ARS',
+		minimumFractionDigits: 0
+	});
 	const precio = pesoARLocale.format(project.precio);
 
 	const items = [
@@ -45,7 +49,7 @@
 			</h5>
 		</a>
 		<div class="flex items-baseline text-gray-900 dark:text-white">
-			<span class="text-3xl font-semibold">$</span>
+			<span class="text-3xl font-semibold"> </span>
 			<span class="md:text-3xl text-5xl font-extrabold tracking-tight overflow-scroll"
 				>{precio}</span
 			>

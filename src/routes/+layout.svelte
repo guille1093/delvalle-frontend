@@ -50,7 +50,7 @@
 		},
 		{
 			title: 'Hoteles',
-			href: '/hoteles',
+			href: '/hotels',
 			icon: 'bx bx-hotel'
 		},
 		{

@@ -88,12 +88,11 @@
 	</Button>
 	<TableSearch placeholder="Buscar" hoverable={true} bind:inputValue={searchTerm}>
 		<TableHead>
-			<TableHeadCell><i class='bx bx-map-alt mr-2'></i>       Destino </TableHeadCell>
-			<TableHeadCell><i class='bx bx-calendar mr-2' ></i>     Salida  </TableHeadCell>
-			<TableHeadCell><i class='bx bx-calendar-check mr-2'></i>Retorno </TableHeadCell>
-			<TableHeadCell><i class='bx bx-fork mr-2'></i>          Regimen </TableHeadCell>
-			<TableHeadCell><i class='bx bx-check-square mr-2'></i>  Estado  </TableHeadCell>
-			<TableHeadCell><i class="bx bx-edit mr-2"></i>          Acciones</TableHeadCell>
+			<TableHeadCell><i class='bx text-blue-600 text-[20px] bx-map-alt mr-2'></i>       Destino </TableHeadCell>
+			<TableHeadCell><i class='bx bx-calendar text-blue-600 text-[20px] mr-2' ></i>     Fechas  </TableHeadCell>
+			<TableHeadCell><i class='bx bx-fork mr-2 text-blue-600 text-[20px]'></i>          Regimen </TableHeadCell>
+			<TableHeadCell><i class='bx bx-check-square mr-2 text-blue-600 text-[20px]'></i>  Estado  </TableHeadCell>
+			<TableHeadCell><i class="bx bx-edit mr-2 text-blue-600 text-[20px]"></i>          Acciones</TableHeadCell>
 		</TableHead>
 		<TableBody class="divide-y">
 			{#each filteredItems as item}
@@ -106,8 +105,10 @@
 							<a href="/projects/{item.id}">$ {pesoARLocale.format(item.precio)}</a>
 						</div>
 					</TableBodyCell>
-					<TableBodyCell>{item.fechasalida}</TableBodyCell>
-					<TableBodyCell>{item.fecharetorno}</TableBodyCell>
+					<TableBodyCell>
+						<div> <i class="text-gray-500 font-normal">Salida: </i>{item.fechasalida}</div>
+						<div> <i class="text-gray-500 font-normal">Retorno:  </i>{item.fecharetorno}</div>
+					</TableBodyCell>
 					<TableBodyCell>{item.regimen}</TableBodyCell>
 					<TableBodyCell>{item.estado}</TableBodyCell>
 					<TableBodyCell>
@@ -117,7 +118,7 @@
 						<Modal label={item.id} checked={modalOpen}>
 							<span
 								slot="trigger"
-								class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 bx bx-trash ml-2"></span>
+								class="text-white bg-gray-400 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-gray-700 dark:hover:bg-red-700 dark:focus:ring-red-900 bx bx-trash ml-2"></span>
 							<div slot="heading">
 								<h3 class="text-2xl">Eliminar a {item.nombre}</h3>
 								<p class="text-base font-normal mt-2">

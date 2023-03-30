@@ -10,12 +10,12 @@
 	export let data;
 	export let form;
 
-	let pesoARLocale = Intl.NumberFormat('es-AR');
+
 	let minDate = new Date();
 	let maxDate = new Date();
 	let minDateRetorno = new Date();
-	let fechasalida = new Date(data.project.fechasalida)
-	let fecharetorno = new Date(data.project.fecharetorno)
+	let fechasalida = new Date(data.hotel.fechasalida)
+	let fecharetorno = new Date(data.hotel.fecharetorno)
 	let dateFnsLocale = es;
 	maxDate.setDate(maxDate.getDate() + 600);
 	// $: fecharetorno;
@@ -26,25 +26,8 @@
 
 	let loading = false;
 
-	const regimenes = [
-		{ id: 1, name: 'Todo Incluido' },
-		{ id: 2, name: 'Media Pensión' },
-		{ id: 3, name: 'Pensión Completa' },
-		{ id: 4, name: 'Solo Alojamiento' },
-		{ id: 5, name: 'Sin Regimen' },
-		{ id: 6, name: 'Alojamiento y Desayuno'},
-		{ id: 7, name: 'Desayuno'},
-	];
 
-	const estados = [
-		{ id: 1, name: 'Disponible' },
-		{ id: 2, name: 'No disponible' },
-		{ id: 3, name: 'Pendiente' },
-		{ id: 4, name: 'Finalizado' },
-		{ id: 5, name: 'En curso' },
-	];
-
-	const submitUpdateProject = () => {
+	const submitUpdatehotel = () => {
 		loading = true;
 		return async ({ result, update }) => {
 			switch (result.type) {
@@ -70,35 +53,35 @@
 		<!-- Modal header -->
 		<div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
 			<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-				Actualizar paquete
+				Actualizar {data.hotel.nombre}
 			</h3>
-			<button type="button" on:click={() => (window.location.href = '/projects')} class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="defaultModal">
+			<button type="button" on:click={() => (window.location.href = '/hotels')} class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="defaultModal">
 				<svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
 			</button>
 		</div>
 		<!-- Modal body -->
-		<form method="POST" action="?/updateProject" enctype="multipart/form-data" use:enhance={submitUpdateProject}>
+		<form method="POST" action="?/updatehotel" enctype="multipart/form-data" use:enhance={submitUpdatehotel}>
 			<div class="grid gap-4 mb-4 sm:grid-cols-2">
 				<div>
 					<Input
 							id="nombre"
 							label="Nombre"
-							value={form?.data?.nombre ?? data.project.nombre}
+							value={form?.data?.nombre ?? data.hotel.nombre}
 							errors={form?.errors?.nombre}
 							placeholder="Nombre del paquete" />
 				</div>
 				<div>
-					<Input id="precio" label="Precio" value={form?.data?.precio ?? data.project.precio} errors={form?.errors?.precio} placeholder="Precio del paquete" type="number" />
+					<Input id="precio" label="Tarifa" value={form?.data?.precio ?? data.hotel.precio} errors={form?.errors?.precio} placeholder="Precio del paquete" type="number" />
 				</div>
 				<div class="mt-1">
 					<div class="form-control w-full max-w-lg mb-2">
-						<span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pais destino</span>
+						<span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pais</span>
 						<div class="relative ">
 							<select
-									id="pais_destino"
-									name="pais_destino"
+									id="pais"
+									name="pais"
 									class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-									value={form?.data?.pais_destino ?? data.project.pais_destino}
+									value={form?.data?.pais ?? data.hotel.pais}
 							>
 								{#each data.nacionalidades as nacionalidad}
 									<option value={nacionalidad.destpais}>{nacionalidad.destpais} ({nacionalidad.codpais})</option>
@@ -108,10 +91,16 @@
 					</div>
 				</div>
 				<div>
-					<Input id="hotel" label="Hotel" value={form?.data?.hotel ?? data.project.hotel} errors={form?.errors?.hotel} placeholder="Seleccione el hotel" />
+					<Input id="direccion" label="Dirección" value={form?.data?.direccion ?? data.hotel.direccion} errors={form?.errors?.direccion} placeholder="Dirección del hotel" />
+				</div>
+				<div>
+					<Input id="telefono" label="Teléfono" value={form?.data?.telefono ?? data.hotel.telefono} errors={form?.errors?.telefono} placeholder="Teléfono del hotel" />
+				</div>
+				<div>
+					<Input id="email" label="Email" value={form?.data?.email ?? data.hotel.email} errors={form?.errors?.email} placeholder="Email del hotel" />
 				</div>
 				<div class="form-control w-full max-w-lg mb-2">
-					<span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha de salida</span>
+					<span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Desde</span>
 					<input
 							id="fechasalida"
 							name="fechasalida"
@@ -135,7 +124,7 @@
 				</div>
 
 				<div class="form-control w-full max-w-lg mb-2">
-					<span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha de retorno</span>
+					<span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hasta</span>
 					<input
 							id="fecharetorno"
 							name="fecharetorno"
@@ -159,56 +148,11 @@
 				</div>
 
 				<div>
-					<Input id="cant_dias" label="Dias" value={form?.data?.cant_dias ?? data.project.cant_dias } errors={form?.errors?.cant_dias} placeholder="Cantidad de dias" type="number" />
-				</div>
-
-				<div>
-					<Input id="cant_noches" label="Noches" value={form?.data?.cant_noches ?? data.project.cant_noches} errors={form?.errors?.cant_noches} placeholder="Cantidad de noches" type="number"/>
-				</div>
-
-				<div class="mt-1">
-					<div class="form-control w-full max-w-lg mb-2">
-						<span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Regimen</span>
-						<div class="relative ">
-							<select
-									id="regimen"
-									name="regimen"
-									class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-									value={form?.data?.regimen ?? data.project.regimen}
-							>
-								{#each regimenes as regimen}
-									<option value={regimen.name}>{regimen.name}</option>
-								{/each}
-							</select>
-						</div>
-					</div>
-				</div>
-
-				<!--				Estado-->
-				<div class="mt-1">
-					<div class="form-control w-full max-w-lg mb-2">
-						<span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estado</span>
-						<div class="relative ">
-							<select
-									id="estado"
-									name="estado"
-									class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-									value={form?.data?.estado ?? data.project.estado}
-							>
-								{#each estados as estado}
-									<option value={estado.name}>{estado.name}</option>
-								{/each}
-							</select>
-						</div>
-					</div>
-				</div>
-
-				<div>
 					<div class="form-control w-full max-w-lg">
 						<label for="thumbnail" class="label font-medium pb-1">
 							<span class="label-text">Imagen</span>
 						</label>
-						{#if data.project.thumbnail}
+						{#if data.hotel.thumbnail}
 							<label for="thumbnail" class="avatar w-20 hover:cursor-pointer">
 								<label for="thumbnail" class="absolute -top-1.5 -right-1.5 hover:cursor-pointer">
 									<button formaction="?/deleteThumbnail" class="btn bg-blue-600 btn-sm btn-circle">
@@ -218,12 +162,12 @@
 								<div class="w-20 rounded">
 									<img
 											src={getImageURL(
-									data.project.collectionId,
-									data.project.id,
-									data.project.thumbnail,
+									data.hotel.collectionId,
+									data.hotel.id,
+									data.hotel.thumbnail,
 									'80x80'
 								)}
-											alt="project thumbnail"
+											alt="hotel thumbnail"
 									/>
 								</div>
 							</label>
@@ -247,7 +191,7 @@
 				</div>
 
 				<div class="sm:col-span-2">
-					<TextArea rows="4" id="descripcion" label="Descripción" placeholder="Ingrese una breve descripción del paquete" value={form?.data?.descripcion} errors={form?.errors?.descripcion}/>
+					<TextArea rows="4" id="observaciones" label="Descripción" placeholder="Ingrese observaciones o detalles extra" value={form?.data?.observaciones ?? data.hotel.observaciones} errors={form?.errors?.observaciones}/>
 				</div>
 			</div>
 			<Button type="submit" class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
