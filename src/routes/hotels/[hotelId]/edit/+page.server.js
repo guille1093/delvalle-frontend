@@ -49,8 +49,17 @@ export const actions = {
 		const { formData, errors } = await validateData(body, editarHotel);
 		const { thumbnail, ...rest } = formData;
 
+		if (formData.fechasalida > formData.fecharetorno) {
+			return {
+				error: true,
+				data: rest,
+				errors: { fechasalida: ['La fecha de salida debe ser menor a la de retorno'] }
+			};
+		}
+
 		if (errors) {
 			return {
+				error: true,
 				data: rest,
 				errors: errors.fieldErrors
 			};

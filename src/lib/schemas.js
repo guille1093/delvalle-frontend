@@ -164,10 +164,20 @@ export const updatePasswordSchema = z
 
 export const updateProfileSchema = z.object({
 	name: z
-		.string({ required_error: 'Name is required' })
-		.min(1, { message: 'Name is required' })
-		.max(64, { message: 'Name must be 64 characters or less' })
+		.string({ required_error: 'El nombre es obligatorio' })
+		.min(1, { message: 'El nombre es obligatorio' })
+		.max(64, { message: 'El nombre no debe superar los 64 caracteres' })
 		.trim(),
+	apellido: z
+		.string({ required_error: 'El apellido es obligatorio' })
+		.min(1, { message: 'El apellido es obligatorio' })
+		.max(64, { message: 'El apellido no debe superar los 64 caracteres' })
+		.trim(),
+	dni: z
+		.string({ required_error: 'El DNI es obligatorio' })
+		.min(1, { message: 'El DNI es obligatorio' })
+		.max(9, { message: 'El DNI no debe superar los 9 caracteres' })
+		.regex(/^[0-9]*$/, { message: 'El DNI debe ser un numero' }),
 	avatar: z
 		.instanceof(Blob)
 		.optional()

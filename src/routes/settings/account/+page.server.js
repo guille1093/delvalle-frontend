@@ -14,6 +14,7 @@ export const actions = {
 
 		if (errors) {
 			return {
+				error: true,
 				data: formData,
 				errors: errors.fieldErrors
 			};
@@ -34,6 +35,7 @@ export const actions = {
 
 		if (errors) {
 			return {
+				error: true,
 				data: formData,
 				errors: errors.fieldErrors
 			};

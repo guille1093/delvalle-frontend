@@ -38,9 +38,18 @@ export const actions = {
 		const { thumbnail, ...rest } = formData;
 
 
+		//funcion que compara que la fecha de salida sea menor a la de retorno
+		if (formData.fechasalida > formData.fecharetorno) {
+			return {
+				error: true,
+				data: rest,
+				errors: { fechasalida: 'La fecha de salida debe ser menor a la de retorno' }
+			};
+		}
 
 		if (errors) {
 			return {
+				error: true,
 				data: rest,
 				errors: errors.fieldErrors
 			};

@@ -14,6 +14,7 @@ export const actions = {
 
 		if (errors) {
 			return {
+				error: true,
 				errors: errors.fieldErrors
 			};
 		}

@@ -38,6 +38,7 @@ export const actions = {
 			console.log('Error: ', err);
 			throw error(err.status, err.message);
 		}
-		redirect(303, `/hotels`);
+		console.log('redirecting...');
+		throw redirect(303, `/hotels`);
 	}
 };

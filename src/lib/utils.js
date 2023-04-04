@@ -59,6 +59,7 @@ export const formatDateToGMT = (date) => {
 	return `${dateArray2[2]}/${dateArray2[1]}/${dateArray2[0]} ${dateArray3[0]}:${dateArray3[1]}`;
 };
 
+
 export const validateData = async (formData, schema) => {
 	const body = Object.fromEntries(formData);
 

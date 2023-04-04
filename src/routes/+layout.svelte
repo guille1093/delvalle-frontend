@@ -4,10 +4,12 @@
 	import { getImageURL } from '$lib/utils';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
+
+
+
 	import {
 		DarkMode,
 		Navbar,
-		NavBrand,
 		NavLi,
 		NavUl,
 		NavHamburger,
@@ -25,14 +27,9 @@
 	import { sineIn } from 'svelte/easing';
 
 	export let data;
-	$: activeUrl = $page.url.pathname;
+
 
 	const navigation = [
-		{
-			title: 'Inicio',
-			href: '/',
-			icon: 'bx bx-home'
-		},
 		{
 			title: 'Clientes',
 			href: '/clientes',
@@ -85,6 +82,9 @@
 		}
 	];
 
+	$: activeUrl = $page.url.pathname;
+
+
 	let transitionParams = {
 		x: -320,
 		duration: 200,
@@ -119,12 +119,9 @@
 	const toggleDrawer = () => {
 		drawerHidden = false;
 	};
-	$: activeUrl = $page.url.pathname;
-	let spanClass = 'pl-2 self-center text-md text-gray-900 whitespace-nowrap dark:text-white';
-	let darkmodebtn =
-		'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-lg z-50';
-	let divClass = 'w-full md:block md:w-auto pr-8';
-	let ulClass = 'flex flex-col p-4 mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-lg md:font-medium';
+
+
+	let darkmodebtn = 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-lg z-50';
 </script>
 
 <svelte:window bind:innerWidth={width} />
@@ -132,11 +129,23 @@
 {#if !data.user}
 	<slot />
 {:else}
-	<Navbar let:hidden let:toggle class="mr-0">
+	<Navbar let:hidden let:toggle class="mr-0 dark:bg-gray-900">
 		<NavHamburger on:click={toggleDrawer} btnClass="ml-3 lg:hidden" />
-		<NavBrand href="/" class="lg:ml-64">
-			<img src="/images/image1.png" class="h-8 mr-3 rounded-lg" alt="Logo" />
-		</NavBrand>
+
+
+		<NavUl class="hidden lg:flex lg:ml-64 dark:bg-gray-900">
+
+			<h5 class="text-xl uppercase">
+				{#each navigation as item}
+					{#if activeUrl.includes(item.href.replace(/^\//, ''))}
+						<i class="bx {item.icon} text-blue-600 mr-2"> </i>
+						{item.title}
+					{/if}
+				{/each}
+			</h5>
+
+
+		</NavUl>
 		<div class="flex items-end mr-0">
 			<DarkMode class="p-2 mr-2" btnClass={darkmodebtn} />
 			<Avatar
@@ -169,26 +178,36 @@
 		bind:hidden={drawerHidden}
 		bind:activateClickOutside
 		width="w-64"
-		class="overflow-scroll pb-32"
+		class="overflow-scroll pb-32 dark:bg-gray-900"
 		id="sidebar"
 	>
 		<div class="flex items-center">
 			<CloseButton on:click={() => (drawerHidden = true)} class="mb-4 dark:text-white lg:hidden" />
 		</div>
-		<Sidebar asideClass="w-54">
-			<SidebarWrapper divClass="overflow-y-auto py-4 px-3 rounded dark:bg-gray-800">
+		<Sidebar asideClass="w-54 dark:bg-gray-900">
+			<SidebarWrapper divClass="overflow-y-auto py-4 px-3 rounded dark:bg-gray-900">
+				<img src="/images/image1.png" class="rounded-lg mb-2 dark:bg-blue-600" alt="Logo" />
 				<SidebarGroup>
 					<ul class="space-y-2">
+						<li>
+							<a href="/" class="flex items-center p-2 text-base font-normal rounded-lg group {$page.url
+									.pathname === '/'
+									? 'bg-blue-600 text-white hover:bg-blue-700 dark:hover:bg-blue-700'
+									: 'bg-gray-100 text-gray-900 hover:bg-gray-300 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-blue-600'} ">
+								<i class="bx bx-home mr-2"></i>
+								<span class="ml-3">Inicio</span>
+							</a>
+						</li>
 						{#each navigation as navItem}
 							<li>
 								<a
 									href={navItem.href}
 									class="flex items-center p-2 text-base font-normal rounded-lg group {$page.url
-										.pathname === navItem.href
+										.pathname.includes(navItem.href.replace(/^\//, ''))
 										? 'bg-blue-600 text-white hover:bg-blue-700 dark:hover:bg-blue-700'
-										: 'bg-gray-200 text-gray-900 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-blue-600'} "
+										: 'bg-gray-100 text-gray-900 hover:bg-gray-300 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-blue-600'} "
 								>
-									<i class="bx {navItem.icon} mr-2" />
+									<i class="bx {navItem.icon} mr-2"></i>
 									<span class="ml-3">{navItem.title}</span>
 								</a>
 							</li>
@@ -198,7 +217,7 @@
 								<button
 									type="submit"
 									class="flex items-center w-full p-2 text-base font-normal rounded-lg group bg-gray-200 text-gray-900 hover:bg-red-600 hover:text-gray-200 hover:border-gray-700 dark:bg-gray-700 dark:text-gray-200 dark:hover:text-gray-200 dark:hover:border-gray-700 dark:hover:bg-red-600"
-									><i class="bx bx-log-out mr-5" />Cerrar sesión</button
+									><i class="bx bx-log-out mr-5"></i>Cerrar sesión</button
 								>
 							</form>
 						</li>

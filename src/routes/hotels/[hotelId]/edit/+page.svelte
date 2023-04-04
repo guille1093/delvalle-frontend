@@ -7,6 +7,7 @@
 	import { Button} from "flowbite-svelte";
 	import {es} from "date-fns/locale";
 	import { DateInput, localeFromDateFnsLocale } from 'date-picker-svelte';
+	import toast from "svelte-french-toast";
 	export let data;
 	export let form;
 
@@ -25,16 +26,24 @@
 
 
 	let loading = false;
-
+	let formerrors = null;
 
 	const submitUpdatehotel = () => {
 		loading = true;
 		return async ({ result, update }) => {
 			switch (result.type) {
 				case 'success':
+					if (result.data.error) {
+						formerrors = result.data.errors;
+						console.log(formerrors);
+						toast.error("Error al actualizar el hotel", { duration: 7000});
+						break;
+					}
 					await invalidateAll();
+					toast.success("Hotel creado exitosamente");
 					break;
 				case 'error':
+					toast.error("Error al actualizar el hotel", { duration: 7000});
 					break;
 				default:
 					await update();
@@ -89,6 +98,13 @@
 							</select>
 						</div>
 					</div>
+					{#if form?.errors?.pais}
+						{#each form?.errors?.pais as error}
+							<p for=pais class="label-text-alt text-error inline-block">
+								{error}
+							</p>
+						{/each}
+					{/if}
 				</div>
 				<div>
 					<Input id="direccion" label="Dirección" value={form?.data?.direccion ?? data.hotel.direccion} errors={form?.errors?.direccion} placeholder="Dirección del hotel" />
@@ -121,6 +137,15 @@
 								max={maxDate}
 						/>
 					</div>
+
+					{#if formerrors?.fechasalida}
+						{#each formerrors?.fechasalida as error}
+							<p for=fechasalida class="label-text-alt text-error inline-block">
+								{error}
+							</p>
+						{/each}
+					{/if}
+
 				</div>
 
 				<div class="form-control w-full max-w-lg mb-2">

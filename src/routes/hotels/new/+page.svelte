@@ -4,6 +4,8 @@
 	import { Button} from "flowbite-svelte";
 	import {es} from "date-fns/locale";
 	import { DateInput, localeFromDateFnsLocale } from 'date-picker-svelte';
+	import toast from "svelte-french-toast";
+	import {invalidateAll} from "$app/navigation";
 	export let form;
 	export let data;
 
@@ -19,6 +21,30 @@
 	$: locale = localeFromDateFnsLocale(dateFnsLocale);
 	$: minDateRetorno.setDate(fechasalida.getDate() + 1);
 
+
+	let formerrors
+	const enhanceNew = () => {
+		return async ({ result, update }) => {
+			switch (result.type) {
+				case 'success':
+					if (result.data.error) {
+						formerrors = result.data.errors;
+						toast.error("Error al crear el hotel", { duration: 7000});
+						break;
+					}
+					await invalidateAll();
+					toast.success("hotel creado exitosamente");
+					break;
+				case 'error':
+					console.log(result);
+					console.log(result.errors);
+					toast.error("Error al crear el hotel");
+					break;
+				default:
+					await update();
+			}
+		};
+	};
 
 
 
@@ -37,13 +63,13 @@
 			</button>
 		</div>
 		<!-- Modal body -->
-		<form action="?/create" method="POST" enctype="multipart/form-data" use:enhance>
+		<form action="?/create" method="POST" enctype="multipart/form-data" use:enhance={enhanceNew}>
 			<div class="grid gap-4 mb-4 sm:grid-cols-2">
 				<div>
-					<Input id="nombre" label="Nombre" value={form?.data?.nombre} errors={form?.errors?.nombre} placeholder="Nombre del hotel" />
+					<Input id="nombre" label="Nombre" value={form?.data?.nombre} errors={formerrors?.nombre} placeholder="Nombre del hotel" />
 				</div>
 				<div>
-					<Input id="precio" label="Precio" value={form?.data?.precio} errors={form?.errors?.precio} placeholder="Tarifa del hotel" type="number" />
+					<Input id="precio" label="Precio" value={form?.data?.precio} errors={formerrors?.precio} placeholder="Tarifa del hotel" type="number" />
 				</div>
 				<div class="mt-1">
 					<div class="form-control w-full max-w-lg mb-2">
@@ -53,7 +79,7 @@
 									id="pais"
 									name="pais"
 									class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-									value={form?.data?.pais}
+									value={form?.data?.pais ?? 'ARGENTINA'}
 							>
 								{#each data.nacionalidades as nacionalidad}
 									<option value={nacionalidad.destpais}>{nacionalidad.destpais} ({nacionalidad.codpais})</option>
@@ -61,16 +87,23 @@
 							</select>
 						</div>
 					</div>
+					{#if formerrors?.pais}
+						{#each formerrors?.pais as error}
+							<p class="label-text-alt text-error inline-block">
+								{error}
+							</p>
+						{/each}
+					{/if}
 				</div>
 <!--				direecion-->
 				<div>
-					<Input id="direccion" label="Dirección" value={form?.data?.direccion} errors={form?.errors?.direccion} placeholder="Dirección del hotel" />
+					<Input id="direccion" label="Dirección" value={form?.data?.direccion} errors={formerrors?.direccion} placeholder="Dirección del hotel" />
 				</div>
 				<div>
-					<Input id="telefono" label="Teléfono" value={form?.data?.telefono} errors={form?.errors?.telefono} placeholder="Teléfono del hotel" />
+					<Input id="telefono" label="Teléfono" value={form?.data?.telefono} errors={formerrors?.telefono} placeholder="Teléfono del hotel" />
 				</div>
 				<div>
-					<Input id="email" label="Email" value={form?.data?.email} errors={form?.errors?.email} placeholder="Email del hotel" />
+					<Input id="email" label="Email" value={form?.data?.email} errors={formerrors?.email} placeholder="Email del hotel" />
 				</div>
 				<div class="form-control w-full max-w-lg mb-2">
 						<span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Desde</span>
@@ -94,6 +127,13 @@
 								max={maxDate}
 						/>
 					</div>
+					{#if formerrors?.fechasalida}
+						{#each formerrors?.fechasalida as error}
+							<p class="label-text-alt text-error inline-block">
+								{error}
+							</p>
+						{/each}
+					{/if}
 				</div>
 
 				<div class="form-control w-full max-w-lg mb-2">
@@ -118,10 +158,17 @@
 								max={maxDate}
 						/>
 					</div>
+					{#if formerrors?.fecharetorno}
+						{#each formerrors?.fecharetorno as error}
+							<p class="label-text-alt text-error inline-block">
+								{error}
+							</p>
+						{/each}
+					{/if}
 				</div>
 
 				<div class="sm:col-span-2">
-					<Input id="thumbnail" label="Imagen" type="file" errors={form?.errors?.thumbnail} />
+					<Input id="thumbnail" label="Imagen" type="file" errors={formerrors?.thumbnail} />
 				</div>
 
 				<div class="sm:col-span-2">

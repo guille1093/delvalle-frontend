@@ -36,7 +36,7 @@ const hotelModelo = z.object({
                 if (!imageTypes.includes(val.type)) {
                     ctx.addIssue({
                         code: z.ZodIssueCode.custom,
-                        message: 'Unsupported file type. Formatos soportados: jpeg, jpg, png, webp, svg, gif, pdf'
+                        message: 'Formato no soportado. Formatos soportados: jpeg, jpg, png, webp, svg, gif, pdf'
                     });
                 }
             }
