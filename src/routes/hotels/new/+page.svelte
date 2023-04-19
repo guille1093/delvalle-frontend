@@ -1,6 +1,6 @@
 <script>
 	import { enhance } from '$app/forms';
-	import { Input, TextArea } from '$lib/components';
+	import { Input, TextArea, FieldError } from '$lib/components';
 	import { Button} from "flowbite-svelte";
 	import {es} from "date-fns/locale";
 	import { DateInput, localeFromDateFnsLocale } from 'date-picker-svelte';
@@ -127,13 +127,7 @@
 								max={maxDate}
 						/>
 					</div>
-					{#if formerrors?.fechasalida}
-						{#each formerrors?.fechasalida as error}
-							<p class="label-text-alt text-error inline-block">
-								{error}
-							</p>
-						{/each}
-					{/if}
+					<FieldError fieldError="{formerrors?.fechasalida}"></FieldError>
 				</div>
 
 				<div class="form-control w-full max-w-lg mb-2">
@@ -158,13 +152,7 @@
 								max={maxDate}
 						/>
 					</div>
-					{#if formerrors?.fecharetorno}
-						{#each formerrors?.fecharetorno as error}
-							<p class="label-text-alt text-error inline-block">
-								{error}
-							</p>
-						{/each}
-					{/if}
+					<FieldError fieldError="{formerrors?.fecharetorno}"></FieldError>
 				</div>
 
 				<div class="sm:col-span-2">

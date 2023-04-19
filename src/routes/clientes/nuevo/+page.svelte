@@ -83,6 +83,7 @@
 				<Input
 					id="dni"
 					label="DNI"
+					type="number"
 					placeholder="Ingrese el DNI del cliente sin puntos"
 					value={form?.data?.dni}
 					errors={formerrors?.dni}
@@ -93,6 +94,7 @@
 					placeholder="cliente@mail.com"
 					value={form?.data?.email}
 					errors={formerrors?.email}
+					type="email"
 				/>
 				<Input
 					id="telefono"
@@ -121,6 +123,11 @@
 						</select>
 					</div>
 				</div>
+				{#if formerrors?.nacionalidad}
+					{#each formerrors?.nacionalidad as error}
+						<div class="text-red-500 text-sm">{error}</div>
+					{/each}
+				{/if}
 				<!--			fecha nacimiento-->
 				<div class="form-control w-full max-w-lg mb-2">
 					<label for="fechanacimiento" class="label font-medium pb-1">
@@ -162,7 +169,7 @@
 							id="sexo"
 							name="sexo"
 							class="select select-bordered bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-							value="{form?.data?.sexo ?? 'MASCULINO'}"
+							value="{form?.data?.sexo ?? 'Masculino'}"
 							placeholder="Seleccione el sexo del cliente"
 						>
 							{#each sexos as sexo}

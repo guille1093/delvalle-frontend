@@ -9,26 +9,9 @@
 			<h3 class="text-2xl font-medium">Change Password</h3>
 			<div class="divider" />
 			<Input
-				id="oldPassword"
-				label="Old Password"
-				type="password"
-				required
-				errors={form?.errors?.oldPassword}
-			/>
-			<Input
-				id="password"
-				label="New Password"
-				type="password"
-				required
-				errors={form?.errors?.password}
-			/>
-			<Input
-				id="passwordConfirm"
-				label="Confirm New Password"
-				type="password"
-				required
-				errors={form?.errors?.passwordConfirm}
-			/>
+				id="oldPassword" label="Old Password" type="password" required errors={form?.errors?.oldPassword}/>
+			<Input id="password" label="New Password" type="password" required errors={form?.errors?.password}/>
+			<Input id="passwordConfirm" label="Confirm New Password" type="password" required errors={form?.errors?.passwordConfirm}/>
 			<a href="/reset-password" class="text-primary hover:cursor-point hover:underline">
 				I forgot my password</a
 			>

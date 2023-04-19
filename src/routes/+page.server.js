@@ -1,10 +1,24 @@
 import { error, redirect } from '@sveltejs/kit';
-import { serialNPJ } from '$lib/utils';
+import { serialNPJ, getImageURL } from '$lib/utils';
 
 export const load = ({ locals }) => {
+
+	if (!locals.user) {throw redirect(302, '/login');}
+
+
+
+
 	const getProjects = async () => {
 		try {
 			const projects = serialNPJ(await locals.pb.collection('projects').getFullList(undefined));
+			//use a foreach to add the image url to the project
+			projects.forEach((project) => {
+				project.image = getImageURL('projects', project.id, project.thumbnail);
+
+
+			}
+			);
+
 			return projects;
 		} catch (err) {
 			console.log('Error:', err);
@@ -12,10 +26,12 @@ export const load = ({ locals }) => {
 		}
 	};
 
-	//redirect to login if not logged in
-	if (!locals.user) {
-		throw redirect(302, '/login');
+	const imgBlob = async (url) => {
+		const response = await fetch(url);
+		return await response.blob();
 	}
+
+
 
 	return {
 		projects: getProjects()

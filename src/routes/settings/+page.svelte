@@ -90,7 +90,7 @@
                                         </label>
                                         <label for="avatar" class="avatar w-32 rounded-full hover:cursor-pointer">
                                             <label for="avatar" class="absolute -bottom-0.5 -right-0.5 hover:cursor-pointer">
-					<span class="btn btn-circle btn-sm btn-secondary">
+					<span class="btn btn-circle btn-sm bg-blue-600">
 						<Icon src={Pencil} class="w-4 h-4" />
 					</span>
                                             </label>
@@ -160,7 +160,7 @@
                                             type="email"
                                             label="Actualice su email"
                                             required={true}
-                                            value={form?.data?.email ?? data?.user?.email}
+                                            value={form?.data?.email}
                                             disabled={loading}
                                             errors={formerrors?.email}
                                     />
@@ -173,29 +173,27 @@
                             <span slot="header"><i class="bx bx-lock mr-2 text-blue-600"></i>Contraseña</span>
                             <div>
                                 <form action="?/updatePassword" method="POST" class="space-y-2">
+
+                                    <Input
+                                            id="oldPassword"
+                                            label="Old Password"
+                                            type="password"
+                                            required
+                                            errors={form?.errors?.oldPassword}
+                                    />
                                     <Input
                                             id="password"
+                                            label="New Password"
                                             type="password"
-                                            label="Contraseña actual"
-                                            required={true}
-                                            disabled={loading}
+                                            required
                                             errors={form?.errors?.password}
                                     />
                                     <Input
-                                            id="new_password"
+                                            id="passwordConfirm"
+                                            label="Confirm New Password"
                                             type="password"
-                                            label="Nueva contraseña"
-                                            required={true}
-                                            disabled={loading}
-                                            errors={form?.errors?.new_password}
-                                    />
-                                    <Input
-                                            id="new_password_confirmation"
-                                            type="password"
-                                            label="Confirmar nueva contraseña"
-                                            required={true}
-                                            disabled={loading}
-                                            errors={form?.errors?.new_password_confirmation}
+                                            required
+                                            errors={form?.errors?.passwordConfirm}
                                     />
                                     <Button type="submit" class="w-1/2" disabled={loading}>Actualizar contraseña</Button
                                     >
@@ -204,7 +202,6 @@
                         </AccordionItem>
                         <AccordionItem>
                             <span slot="header"><i class="bx bx-key mr-2 text-blue-600"></i>Nombre de usuario</span>
-
                             <form
                                     action="?/updateUsername"
                                     method="POST"

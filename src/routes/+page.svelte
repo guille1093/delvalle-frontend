@@ -9,5 +9,10 @@
 		{#each data.projects as project}
 			<ProjectCard {project} />
 		{/each}
+
 	</div>
+
 </div>
+
+
+

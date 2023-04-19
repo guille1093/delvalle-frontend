@@ -95,8 +95,7 @@
 					errors={form?.errors?.username}
 					disabled={loading}
 				/>
-				<button type="submit" class="btn btn-primary w-full" disabled={loading}
-					>Change my username</button
+				<button type="submit" class="btn btn-primary w-full" disabled={loading}>Change my username</button
 				>
 			</form>
 		</Modal>

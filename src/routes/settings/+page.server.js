@@ -50,6 +50,7 @@ export const actions = {
 		try {
 			await locals.pb.collection('users').requestEmailChange(formData.email);
 		} catch (err) {
+			console.log('Error: ', err);
 			throw error(err.status, err.message);
 		}
 
@@ -119,7 +120,7 @@ export const actions = {
 		} catch (err) {
 			console.log('Error: ', err);
 
-			throw error(400, 'Something went wrong updating your profile');
+			throw error(400, 'Error al actualizar el perfil');
 		}
 
 		return {

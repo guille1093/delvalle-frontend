@@ -38,12 +38,7 @@ export const actions = {
 		let clientesRepetidos = [];
 		try {
 			clientesRepetidos = (
-				await locals.pb.collection('clientes').getFullList(undefined, {
-					filter: `dni = "${formData.dni}"`
-				})
-			).filter((cliente) => {
-				return cliente.dni === formData.dni;
-			});
+				await locals.pb.collection('clientes').getFirstListItem( {filter: `dni = "${formData.dni}"`}))
 		} catch (err) {
 			clientesRepetidos = [];
 		}

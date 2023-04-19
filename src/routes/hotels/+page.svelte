@@ -79,6 +79,7 @@
 </script>
 
 
+
 <div class="w-full h-max dark:bg-gray-900">
 
 
@@ -103,7 +104,7 @@
 						Puede buscar por nombre, fechas, tarifa, ubicación, email, teléfono y observaciones.
 					</Tooltip>
 					<div class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
-						<Button href="/hotels/new" class="ml-4 ">
+						<Button href="/hotels/new">
 							<svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 								<path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
 							</svg>

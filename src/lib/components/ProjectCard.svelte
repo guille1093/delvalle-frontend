@@ -7,17 +7,18 @@
 		minimumFractionDigits: 0
 	});
 	const precio = pesoARLocale.format(project.precio);
-
+	let fechaSalida = new Date(project.fechasalida).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric'});
+	let fechaRetorno = new Date(project.fecharetorno).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric'});
 	const items = [
 		{
 			name: 'Salida',
 			icon: 'bx-calendar-heart',
-			value: project.fechasalida
+			value: fechaSalida
 		},
 		{
 			name: 'Llegada',
 			icon: 'bx-calendar-check',
-			value: project.fecharetorno
+			value: fechaRetorno
 		},
 		{
 			name: 'Dias',
@@ -50,7 +51,7 @@
 		</a>
 		<div class="flex items-baseline text-gray-900 dark:text-white">
 			<span class="text-3xl font-semibold"> </span>
-			<span class="md:text-3xl text-5xl font-extrabold tracking-tight overflow-scroll"
+			<span class="md:text-3xl text-5xl font-extrabold tracking-tight"
 				>{precio}</span
 			>
 		</div>

@@ -1,7 +1,6 @@
 <script>
 	import moment from 'moment';
-	import { Card, Button, Toggle } from "flowbite-svelte";
-	let hCard = false;
+	import {Button} from "flowbite-svelte";
 	export let data;
 	const fechaS = moment(data.hotel.fechasalida).format('DD/MM/YYYY');
 	const fechaR = moment(data.hotel.fecharetorno).format('DD/MM/YYYY');
@@ -94,7 +93,7 @@
 									</li>
 								{/each}
 							</ul>
-							<Button
+							<Button class="sm:w-1/2 w-full"
 									href="{data.hotel.id}/edit"
 							>
 								Editar

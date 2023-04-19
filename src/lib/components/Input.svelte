@@ -7,6 +7,8 @@
 	export let disabled = false;
 	export let required = false;
 	export let errors;
+	import { Button} from "flowbite-svelte";
+
 </script>
 
 <div class="form-control w-full max-w-lg mb-2">
@@ -27,9 +29,7 @@
 	/>
 	{#if errors}
 		{#each errors as error}
-			<p for={id} class="label-text-alt text-error inline-block">
-				{error}
-			</p>
+			<Button for="{id}" size="xs" color="blue" class="m-2  w-[300px]" pill={true}>{error}</Button>
 		{/each}
 	{/if}
 </div>
