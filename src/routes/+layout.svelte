@@ -5,7 +5,7 @@
 	import { getImageURL } from '$lib/utils';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	import {DarkMode, Navbar, NavHamburger, Sidebar, SidebarGroup, SidebarWrapper, Drawer, CloseButton, Avatar, Dropdown, DropdownItem, DropdownHeader, DropdownDivider} from 'flowbite-svelte';
+	import {DarkMode, Navbar, NavHamburger, Sidebar, SidebarGroup, SidebarWrapper, Drawer, CloseButton, Avatar, Dropdown, DropdownItem, DropdownHeader, DropdownDivider, NavBrand} from 'flowbite-svelte';
 	import { sineIn } from 'svelte/easing';
 
 	//Exports
@@ -116,9 +116,12 @@
 	<Navbar let:hidden let:toggle class="mr-0 dark:bg-gray-900">
 		<NavHamburger on:click={toggleDrawer} btnClass="ml-3 lg:hidden" />
 
+<NavBrand class="ml-[180px]">
+	<img src="/images/image1.png" class="rounded-lg dark:bg-blue-600 w-[50px] mr-2" alt="Logo" />
+		<h5 class="text-xl ">Del Valle Turismo</h5>
+</NavBrand>
 
 		<div class="lg:flex lg:ml-64 dark:bg-gray-900">
-
 			<h5 class="text-xl uppercase">
 				{#if activeUrl === '/'}
 					<i class="bx bx-home text-blue-600 mr-2"></i>
@@ -174,7 +177,6 @@
 		</div>
 		<Sidebar asideClass="w-[185px]">
 			<SidebarWrapper divClass="py-4 rounded h-[100px]">
-				<div class="flex items-center w-full justify-center"><img src="/images/image1.png" class="rounded-lg mb-2 dark:bg-blue-600 w-[80px]" alt="Logo" /></div>
 
 				<SidebarGroup class="">
 					<ul class="space-y-2">
@@ -189,13 +191,7 @@
 						</li>
 						{#each navigation as navItem}
 							<li>
-								<a
-									href={navItem.href}
-									class="flex items-center p-2 text-base font-normal rounded-lg group {$page.url
-										.pathname.includes(navItem.href.replace(/^\//, ''))
-										? 'bg-blue-600 text-white hover:bg-blue-700 dark:hover:bg-blue-700'
-										: 'bg-gray-100 text-gray-900 hover:bg-gray-300 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-blue-600'} "
-								>
+								<a href={navItem.href} class="flex items-center p-2 text-base font-normal rounded-lg group {$page.url.pathname.includes(navItem.href.replace(/^\//, '')) ? 'bg-blue-600 text-white hover:bg-blue-700 dark:hover:bg-blue-700' : 'bg-gray-100 text-gray-900 hover:bg-gray-300 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-blue-600'} ">
 									<i class="bx {navItem.icon} mr-2"></i>
 									<span class="ml-3">{navItem.title}</span>
 								</a>

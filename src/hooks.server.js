@@ -6,7 +6,7 @@ export const handle = async ({ event, resolve }) => {
 	console.log('handle', event);
 
 	// Conectamos con la base de datos
-	event.locals.pb = new PocketBase('http://192.168.1.16:8090');
+	event.locals.pb = new PocketBase('http://127.0.0.1:8090');
 
 	// Cargamos la cookie de autenticación
 	event.locals.pb.authStore.loadFromCookie(event.request.headers.get('cookie') || '');

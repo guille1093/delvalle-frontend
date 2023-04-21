@@ -35,12 +35,22 @@ export const actions = {
 			};
 		}
 
+		let filterparams = 'dni=' + formData.dni;
+		console.log('filterparams: ', filterparams);
+
+		//check if there is another client with the same DNI
 		let clientesRepetidos = [];
 		try {
-			clientesRepetidos = (
-				await locals.pb.collection('clientes').getFirstListItem( {filter: `dni = "${formData.dni}"`}))
+			//TODO: Hace funcionar el getFirstListItem con query params HARAGAN DEL ORTO
+			clientesRepetidos  = (await locals.pb.collection('clientes')
+				.getFullList(undefined, {}))
+				.filter((cliente) => {
+					return cliente.dni === formData.dni;
+				});
+			console.log('DNI repetidos: ', clientesRepetidos );
 		} catch (err) {
-			clientesRepetidos = [];
+			console.log('Error: ', err);
+			clientesRepetidos  = [];
 		}
 
 		if (clientesRepetidos.length > 0) {

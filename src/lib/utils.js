@@ -12,7 +12,7 @@ export const generateUsername = (name) => {
 };
 
 export const getImageURL = (collectionId, recordId, fileName, size = '0x0') => {
-	return `http://192.168.1.16:8090/api/files/${collectionId}/${recordId}/${fileName}?thumb=${size}`;
+	return `http://localhost:8090/api/files/${collectionId}/${recordId}/${fileName}?thumb=${size}`;
 };
 
 // function that tkes an url and returns the image blob

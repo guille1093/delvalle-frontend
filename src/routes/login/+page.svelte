@@ -73,14 +73,6 @@
 							errors={form?.errors?.password}
 							disabled={loading}
 						/>
-						<div class="w-full max-w-lg">
-							<a
-								href="/reset-password"
-								class="font-medium text-gray-500 hover:cursor-pointer hover:underline"
-							>
-								Olvido su contraseña?
-							</a>
-						</div>
 
 						<div class="w-full max-w-lg pt-2">
 							<button type="submit" class="btn btn-info w-full" disabled={loading}
@@ -112,7 +104,6 @@
 					</form>
 				</div>
 			</div>
-			<div class="pt-5 text-center text-gray-400 text-xs" />
 		</div>
 	</div>
 </div>
