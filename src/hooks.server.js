@@ -7,6 +7,7 @@ export const handle = async ({ event, resolve }) => {
 
 	// Conectamos con la base de datos
 	event.locals.pb = new PocketBase('http://127.0.0.1:8090');
+	console.log('pb', event.locals.pb);
 
 	// Cargamos la cookie de autenticación
 	event.locals.pb.authStore.loadFromCookie(event.request.headers.get('cookie') || '');
@@ -27,7 +28,6 @@ export const handle = async ({ event, resolve }) => {
 	const response = await resolve(event);
 
 	// Guardamos la cookie de autenticación
-	response.headers.set('set-cookie', event.locals.pb.authStore.exportToCookie({ secure: false }));
-
+	response.headers.set('set-cookie', event.locals.pb.authStore.exportToCookie({ secure: true }));
 	return response;
 };

@@ -39,15 +39,17 @@
 		"vite": "^4.2.0",
 		"zod": "^3.19.1"
 	},
+
 	"type": "module",
 	"dependencies": {
-		"zod": "^3.19.1",
 		"boxicons": "^2.1.4",
 		"date-fns": "^2.29.3",
+		"dotenv": "^16.0.3",
 		"ip": "^1.1.8",
 		"moment": "^2.29.4",
 		"pocketbase": "^0.8.0-rc2",
 		"svelte-heros-v2": "^0.4.2",
-		"sveltestrap": "^5.10.0"
+		"sveltestrap": "^5.10.0",
+		"crypto": "^1.0.1"
 	}
 }

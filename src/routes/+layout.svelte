@@ -82,7 +82,7 @@
 
 	<main>
 		<div class="flex flex-col min-h-screen bg-white dark:bg-gray-900">
-			<header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white dark:bg-gray-900 ">
+			<header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white dark:bg-gray-900 not-printable">
 				<Navbar let:hidden let:toggle fluid={false} {navClass} {navDivClass}>
 					<NavBrand href="/">
 						<img
@@ -148,9 +148,15 @@
 					</NavUl>
 				</Navbar>
 			</header>
-			<div class="mx-auto max-w-8xl dark:bg-gray-900 pb-8">
+			<div class="mx-auto max-w-8xl dark:bg-gray-900">
 				<slot />
 			</div>
 		</div>
 	</main>
 {/if}
+
+<style>
+	@media print {
+		.not-printable { display: none; }
+	}
+</style>

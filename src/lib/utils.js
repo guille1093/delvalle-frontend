@@ -1,15 +1,26 @@
 import moment from 'moment';
 
-const { randomBytes } = await import('node:crypto');
-
 export const serialNPJ = (obj) => {
 	return structuredClone(obj);
 };
 
+const generateRandomString = (length) => {
+	const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+	let randomString = '';
+
+	for (let i = 0; i < length; i++) {
+		const randomIndex = Math.floor(Math.random() * characters.length);
+		randomString += characters.charAt(randomIndex);
+	}
+
+	return randomString;
+};
+
 export const generateUsername = (name) => {
-	const id = randomBytes(2).toString('hex');
+	const id = generateRandomString(4);
 	return `${name.slice(0, 5)}${id}`;
 };
+
 
 export const getImageURL = (collectionId, recordId, fileName, size = '0x0') => {
 	return `http://localhost:8090/api/files/${collectionId}/${recordId}/${fileName}?thumb=${size}`;
