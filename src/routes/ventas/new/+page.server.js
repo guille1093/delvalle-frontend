@@ -47,9 +47,11 @@ export const load = ({ locals }) => {
 export const actions = {
 	create: async ({ request, locals }) => {
 		const body = await request.formData();
+		body.set('fecha', new Date().toISOString());
+		body.set('usuario', locals.user.id.toString());
+		body.set('pagado', '0');
 		const { formData, errors } = await validateData(body, nuevaVentaModelo);
 		const { ...rest } = formData;
-
 		console.log('formData: ', formData);
 		if (errors) {
 			return {
@@ -59,9 +61,7 @@ export const actions = {
 			};
 		}
 
-		formData.fecha = new Date().toISOString();
-		formData.usuario = locals.pb.authStore.user.id;
-		formData.pagado = '0';
+
 
 		try {
 			await locals.pb.collection('ventas').create(serialize(formData));

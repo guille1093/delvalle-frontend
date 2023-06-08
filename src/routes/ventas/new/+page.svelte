@@ -4,7 +4,8 @@
 	import { Button} from "flowbite-svelte";
 	import toast from "svelte-french-toast";
 	import {invalidateAll} from "$app/navigation";
-
+	import { FieldError} from "$lib/components/";
+	import Svelecte from 'svelecte';
 
 	export let form;
 	export let data;
@@ -74,7 +75,16 @@
 							</select>
 					</div>
 				</div>
+					<FieldError fieldError="{formerrors?.cliente}"></FieldError>
 			</div>
+
+				<label for="cliente">Select a country</label>
+				<Svelecte options="{data.clientes}"
+									name="cliente"
+									inputId="cliente"
+									placeholder="Selecciona un cliente"
+									valueField="id"
+				></Svelecte>
 
 			<div>
 				<div class="form-control w-full max-w-lg mb-2">
@@ -92,6 +102,7 @@
 						</select>
 					</div>
 				</div>
+				<FieldError fieldError="{formerrors?.paquete}"></FieldError>
 			</div>
 
 
@@ -107,6 +118,7 @@
 							value={form?.data?.observaciones ?? ''}
 					></textarea>
 				</div>
+				<FieldError fieldError="{formerrors?.observaciones}"></FieldError>
 			</div>
 
 			<Button type="submit" class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">

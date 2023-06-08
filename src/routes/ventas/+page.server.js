@@ -29,6 +29,7 @@ export const load = ({ locals }) => {
 				const paquete = paquetes[venta.paquete];
 
 				venta.cliente = {
+					id: cliente.id,
 					dni: cliente.dni,
 					nombre: cliente.nombre,
 					apellido: cliente.apellido

@@ -9,7 +9,6 @@
 		"test": "playwright test",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write ."
-
 	},
 	"devDependencies": {
 		"@playwright/test": "1.25.0",
@@ -51,6 +50,7 @@
 		"ip": "^1.1.8",
 		"moment": "^2.29.4",
 		"pocketbase": "^0.8.0-rc2",
+		"svelecte": "^3.16.1",
 		"svelte-heros-v2": "^0.4.2",
 		"sveltestrap": "^5.10.0"
 	}
